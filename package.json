@@ -75,6 +75,10 @@
       "title": "Move Extension Bookmark"
       },
       {
+        "command": "extension-bookmarker.searchBookmark",
+        "title": "Search Extension Bookmark"
+      },
+      {
         "command": "extension-bookmarker.removeAllData",
         "title": "Remove All Extension Bookmark/Category Data"
       },
@@ -82,8 +86,8 @@
         "command": "extension-bookmarker.add",
         "title": "Add",
         "icon": {
-          "light": "media/light/add-icon.svg",
-          "dark": "media/dark/add-icon.svg"
+          "light": "media/light/actions-icon.svg",
+          "dark": "media/dark/actions-icon.svg"
         }
       }
     ],

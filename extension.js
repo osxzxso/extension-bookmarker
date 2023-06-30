@@ -48,16 +48,18 @@ function activate(context) {
     const bookmarkDataProvider = new BookmarkDataProvider();
     vscode.window.registerTreeDataProvider('extensionBookmarkerView', bookmarkDataProvider);
 
-    // Command to select adding a bookmark or category
+    // Command to select adding a bookmark, category or search
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.add', async () => {
-        const options = ['Add Bookmark', 'Add Category'];
+        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark'];
         const selectedOption = await vscode.window.showQuickPick(options, { placeHolder: 'Select an option' });
         if (selectedOption === options[0]) {
-          vscode.commands.executeCommand('extension-bookmarker.addBookmark');
+        vscode.commands.executeCommand('extension-bookmarker.addBookmark');
         } else if (selectedOption === options[1]) {
-          vscode.commands.executeCommand('extension-bookmarker.addCategory');
+        vscode.commands.executeCommand('extension-bookmarker.addCategory');
+        } else if (selectedOption === options[2]) {
+        vscode.commands.executeCommand('extension-bookmarker.searchBookmark');
         }
-      }));
+    }));
 
     // Command to add a bookmark
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.addBookmark', async () => {
@@ -196,6 +198,27 @@ function activate(context) {
             await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
             bookmarkDataProvider.refresh();
             vscode.window.showInformationMessage(`Bookmark ${item.label} has been moved to ${selectedCategory}.`);
+        }
+    }));
+
+    // Command to search a bookmark
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.searchBookmark', async () => {
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const searchTerm = await vscode.window.showInputBox({ prompt: 'Enter the name of the bookmark to search' });
+
+        if (searchTerm) {
+            const searchResults = bookmarks.filter(bookmark => bookmark.displayName.toLowerCase().includes(searchTerm.toLowerCase()));
+            if (searchResults.length > 0) {
+                vscode.window.showQuickPick(searchResults.map(bookmark => bookmark.displayName), { placeHolder: 'Select a bookmark to view details' })
+                .then(selectedBookmark => {
+                    if (selectedBookmark) {
+                        const selectedBookmarkId = searchResults.find(bookmark => bookmark.displayName === selectedBookmark).id;
+                        vscode.commands.executeCommand('workbench.extensions.search', `${selectedBookmarkId}`);
+                    }
+                });
+            } else {
+                vscode.window.showInformationMessage(`No bookmarks found with the term ${searchTerm}.`);
+            }
         }
     }));
 
