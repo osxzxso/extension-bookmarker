@@ -16,9 +16,14 @@
     "Other"
   ],
   "activationEvents": [
+    "onCommand:extension-bookmarker.add",
     "onCommand:extension-bookmarker.addBookmark",
     "onCommand:extension-bookmarker.viewBookmarks",
     "onCommand:extension-bookmarker.removeBookmark",
+    "onCommand:extension-bookmarker.addCategory",
+    "onCommand:extension-bookmarker.renameCategory",
+    "onCommand:extension-bookmarker.removeCategory",
+    "onCommand:extension-bookmarker.moveBookmark",
     "onView:extensionBookmarkerView"
   ],
   "main": "./extension",
@@ -43,29 +48,49 @@
     "commands": [
       {
         "command": "extension-bookmarker.addBookmark",
-        "title": "➕ Add Extension Bookmark"
+        "title": "Add Extension Bookmark"
       },
       {
         "command": "extension-bookmarker.viewBookmarks",
-        "title": "👁️ View Extension Bookmarks"
+        "title": "View Extension Bookmarks"
       },
       {
         "command": "extension-bookmarker.removeBookmark",
-        "title": "🗑️ Remove Extension Bookmark"
+        "title": "Remove Extension Bookmark"
       },
       {
-        "command": "extension-bookmarker.addBookmarkFromUI",
-        "title": "Add Extension Bookmark from UI",
+        "command": "extension-bookmarker.addCategory",
+        "title": "Add Extension Category"
+      },
+      {
+        "command": "extension-bookmarker.renameCategory",
+        "title": "Rename Extension Category"
+      },
+      {
+        "command": "extension-bookmarker.removeCategory",
+        "title": "Remove Extension Category"
+      },
+      {
+      "command": "extension-bookmarker.moveBookmark",
+      "title": "Move Extension Bookmark"
+      },
+      {
+        "command": "extension-bookmarker.removeAllData",
+        "title": "Remove All Extension Bookmark/Category Data"
+      },
+      {
+        "command": "extension-bookmarker.add",
+        "title": "Add",
         "icon": {
-          "light": "media/light/add-bookmark-icon.svg",
-          "dark": "media/dark/add-bookmark-icon.svg"
+          "light": "media/light/add-icon.svg",
+          "dark": "media/dark/add-icon.svg"
         }
       }
     ],
     "menus": {
       "view/title": [
         {
-          "command": "extension-bookmarker.addBookmarkFromUI",
+          "command": "extension-bookmarker.add",
           "group": "navigation",
           "when": "view == extensionBookmarkerView"
         }
@@ -75,6 +100,21 @@
           "command": "extension-bookmarker.removeBookmark",
           "group": "0_extension_bookmarker",
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
+        },
+        {
+          "command": "extension-bookmarker.renameCategory",
+          "group": "1_category",
+          "when": "view == extensionBookmarkerView && viewItem == category && viewItem != defaultCategory"
+        },
+        {
+          "command": "extension-bookmarker.removeCategory",
+          "group": "1_category",
+          "when": "view == extensionBookmarkerView && viewItem == category && viewItem != defaultCategory"
+        },
+        {
+          "command": "extension-bookmarker.moveBookmark",
+          "group": "0_extension_bookmarker",
+          "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         }
       ]
     },
@@ -82,10 +122,15 @@
       "type": "object",
       "title": "Extension Bookmarker Configuration",
       "properties": {
-        "extension-bookmarker.bookmarkedExtensions": {
+        "extension-bookmarker.categories": {
+          "type": "array",
+          "default": ["Default"],
+          "description": "List of categories"
+        },
+        "extension-bookmarker.bookmarks": {
           "type": "array",
           "default": [],
-          "description": "List of bookmarked extensions"
+          "description": "List of bookmarks with their categories"
         }
       }
     }
