@@ -4,7 +4,7 @@ Extension Bookmarker
 Overview
 --------
 
-Extension Bookmarker allows you to bookmark other VS Code extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet. Added bookmarks are persistently stored and can be viewed, opened, and removed as needed.
+Extension Bookmarker allows you to bookmark other VS Code extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
 
 Features and Use
 -----------------
@@ -57,31 +57,41 @@ How to locate and copy an extension's identifier within the VS Code Extensions M
 
 **Note**: When adding or removing bookmarks, make sure to copy the identifier exactly as shown, including the publisher and extension name (publisher.extensionname).
 
+Current Features
+-----------------
+1. **Addition and Removal of Bookmarks**: Add and remove bookmarks, as well as select a category to associate each bookmark with.
+2. **View in Marketplace**: Select a bookmark to open it in the Extensions view of the Visual Studio Code Marketplace.
+3. **Categorization of Bookmarks**: Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
+4. **Search Functionality**: Search through your bookmarks.
+5. **Import/Export Bookmarks**: Import and export all categories and corresponding bookmarks.
+6. **Tagging/Filtering System**: Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
+7. **Sorting Options**: Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
+
 Upcoming Features
 -----------------
-1. **Synchronization Across Installations**: Your bookmarks will be synced across different installations of Visual Studio Code.
-2. **Categorization of Bookmarks**: Navigate through your bookmarks with ease using the ability to create, rename, and delete folders. Drag and drop your bookmarked extensions where you want them.
-3. **Search Functionality**: Find your bookmarked extensions quickly and efficiently with the added search function.
-4. **Sorting Options**: Organize your bookmarks in the way that works best for you with alphabetical (A-Z, Z-A), chronological (New-Old, Old-New), and more sorting options.
-5. **Tagging/Filtering System**: Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
-6. **Import/Export Bookmarks**: Safeguard and share your bookmarks with others through import and export functionalities.
-7. **Extension Recommendations**: Get recommendations for other extensions you might find useful, based on your current set of bookmarked extensions.
-8. **Bookmark Notes**: Add personal notes to each bookmark for better context and recall.
-9. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
-10. **Bulk Add/Move/Remove Bookmarks**: Manage your bookmarks efficiently with the ability to add, move, and/or remove bookmarks in bulk.
-11. **Extension Stats**: Make informed decisions about which extensions to keep or remove with statistics about your bookmarked extensions, such as download count, rating, and last update date.
+1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move or remove bookmarks in bulk.
+2. **Bulk Add/Remove Categories**: Ability to add or remove categories in bulk.
+3. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
+4. **Bookmark Notes**: Add personal notes to each bookmark for added context and better recall.
+5. **Extension Recommendations**: Get recommendations for other extensions you might find useful, based on your current set of bookmarked extensions.
+6. **Extension Stats**: Integrate each bookmark's download count, rating, and last update date into the UI.
+7. **Synchronization Across Installations**: Sync data across different installations of Visual Studio Code.
 
 CURRENT VERSION - 1.0.0
 -----------------------
 ### CHANGES - released on 6/25/2023
 - Initial release of Extension Bookmarker.
-- Add, view, and remove bookmarks from the Command Palette or UI.
-- Open bookmarks in the Extensions view of the Visual Studio Code Marketplace.
+- Add and remove bookmarks, as well as select a category to associate each bookmark with.
+- Select a bookmark to open it in the Extensions view of the Visual Studio Code Marketplace.
+- Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
+- Search through your bookmarks.
+- Import and export all categories and corresponding bookmarks.
+- Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
+- Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
 ### ISSUES - last updated on 6/25/23
 ⬜ Remove Extension bookmark command from the command palette doesn't work, and needs to account for when there are no bookmakrs yet and the command is executed.  
 ⬜ UI commands appear in the command palette. Hide them from the command palette, if possible.  
-✅ Unicode icons for the command palette add (plus) and view (eye) and remove (trash) commands need to be added.  
-⬜ Add a screenshot(s) to the README.md file.
+⬜ Add a screenshot(s) to this README.md file.
 
 Support
 -------
