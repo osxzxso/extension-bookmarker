@@ -49,7 +49,7 @@ function activate(context) {
 
     // Command to select adding a bookmark, category, search, import or export
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.add', async () => {
-        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark', 'Import Categories/Bookmarks', 'Export Categories/Bookmarks'];
+        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark', 'Import Categories/Bookmarks', 'Export Categories/Bookmarks', 'Filter by Tag'];
         const selectedOption = await vscode.window.showQuickPick(options, { placeHolder: 'Select an option' });
         if (selectedOption === options[0]) {
             vscode.commands.executeCommand('extension-bookmarker.addBookmark');
@@ -61,6 +61,8 @@ function activate(context) {
             vscode.commands.executeCommand('extension-bookmarker.importData');
         } else if (selectedOption === options[4]) {
             vscode.commands.executeCommand('extension-bookmarker.exportData');
+        } else if (selectedOption === options[5]) {
+            vscode.commands.executeCommand('extension-bookmarker.filterByTag');
         }
     }));
 
@@ -222,6 +224,59 @@ function activate(context) {
             } else {
                 vscode.window.showInformationMessage(`No bookmarks found with the term ${searchTerm}.`);
             }
+        }
+    }));
+
+    // Command to add a tag to a bookmark
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.addTag', async (item) => {
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const bookmark = bookmarks.find(bookmark => bookmark.id === item.command.arguments[0]);
+        if (bookmark) {
+            const newTag = await vscode.window.showInputBox({ prompt: 'Enter the name of the new tag' });
+            if (newTag) {
+                bookmark.tags = bookmark.tags || [];
+                if (!bookmark.tags.includes(newTag)) {
+                    bookmark.tags.push(newTag);
+                    await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
+                    bookmarkDataProvider.refresh();
+                    vscode.window.showInformationMessage(`Tag ${newTag} has been added to ${item.label}.`);
+                } else {
+                    vscode.window.showErrorMessage(`Tag ${newTag} already exists for ${item.label}.`);
+                }
+            }
+        }
+    }));
+
+    // Command to remove a tag from a bookmark
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.removeTag', async (item) => {
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const bookmark = bookmarks.find(bookmark => bookmark.id === item.command.arguments[0]);
+        if (bookmark && bookmark.tags) {
+            const selectedTag = await vscode.window.showQuickPick(bookmark.tags, { placeHolder: 'Select a tag to remove' });
+            if (selectedTag) {
+                const index = bookmark.tags.indexOf(selectedTag);
+                bookmark.tags.splice(index, 1);
+                await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
+                bookmarkDataProvider.refresh();
+                vscode.window.showInformationMessage(`Tag ${selectedTag} has been removed from ${item.label}.`);
+            }
+        }
+    }));
+
+    // Command to filter bookmarks by tag
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.filterByTag', async () => {
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const allTags = [...new Set(bookmarks.flatMap(bookmark => bookmark.tags || []))];
+        const selectedTag = await vscode.window.showQuickPick(allTags, { placeHolder: 'Select a tag to filter by' });
+        if (selectedTag) {
+            const filteredBookmarks = bookmarks.filter(bookmark => bookmark.tags && bookmark.tags.includes(selectedTag));
+            vscode.window.showQuickPick(filteredBookmarks.map(bookmark => bookmark.displayName), { placeHolder: 'Select a bookmark to view details' })
+                .then(selectedBookmark => {
+                    if (selectedBookmark) {
+                        const selectedBookmarkId = filteredBookmarks.find(bookmark => bookmark.displayName === selectedBookmark).id;
+                        vscode.commands.executeCommand('workbench.extensions.search', `${selectedBookmarkId}`);
+                    }
+                });
         }
     }));
 
