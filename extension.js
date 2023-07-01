@@ -20,9 +20,25 @@ class BookmarkDataProvider {
     async getChildren(element) {
         const categories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
         const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const sortingOption = vscode.workspace.getConfiguration('extension-bookmarker').get('sortingOption', 'A-Z');
 
         if (element) {
-            return bookmarks.filter(bookmark => bookmark.category === element.label).map(bookmark => {
+            let bookmarksInCategory = bookmarks.filter(bookmark => bookmark.category === element.label);
+            switch (sortingOption) {
+                case 'A-Z':
+                    bookmarksInCategory.sort((a, b) => a.displayName.localeCompare(b.displayName));
+                    break;
+                case 'Z-A':
+                    bookmarksInCategory.sort((a, b) => b.displayName.localeCompare(a.displayName));
+                    break;
+                case 'New-Old':
+                    bookmarksInCategory.sort((a, b) => b.dateAdded - a.dateAdded);
+                    break;
+                case 'Old-New':
+                    bookmarksInCategory.sort((a, b) => a.dateAdded - b.dateAdded);
+                    break;
+            }
+            return bookmarksInCategory.map(bookmark => {
                 let treeItem = new vscode.TreeItem(bookmark.displayName);
                 treeItem.command = {
                     command: 'extension-bookmarker.openExtension',
@@ -47,9 +63,9 @@ function activate(context) {
     const bookmarkDataProvider = new BookmarkDataProvider();
     vscode.window.registerTreeDataProvider('extensionBookmarkerView', bookmarkDataProvider);
 
-    // Command to select adding a bookmark, category, search, import or export
+    // Command to select adding a bookmark, adding a category, search, import or export, filter, sort
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.add', async () => {
-        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark', 'Import Categories/Bookmarks', 'Export Categories/Bookmarks', 'Filter by Tag'];
+        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark', 'Import Categories/Bookmarks', 'Export Categories/Bookmarks', 'Filter by Tag', 'Change Sorting Option'];
         const selectedOption = await vscode.window.showQuickPick(options, { placeHolder: 'Select an option' });
         if (selectedOption === options[0]) {
             vscode.commands.executeCommand('extension-bookmarker.addBookmark');
@@ -63,6 +79,8 @@ function activate(context) {
             vscode.commands.executeCommand('extension-bookmarker.exportData');
         } else if (selectedOption === options[5]) {
             vscode.commands.executeCommand('extension-bookmarker.filterByTag');
+        } else if (selectedOption === options[6]) {
+            vscode.commands.executeCommand('extension-bookmarker.changeSortingOption');
         }
     }));
 
@@ -91,7 +109,7 @@ function activate(context) {
                     let extensionData = response.data.results[0].extensions[0];
                     let displayName = extensionData.displayName;
                     let icon = extensionData.versions[0].files.find(file => file.assetType === "Microsoft.VisualStudio.Services.Icons.Default")?.source;
-                    bookmarks.push({ id: selectedExtension, displayName: displayName, icon: icon, category: selectedCategory });
+                    bookmarks.push({ id: selectedExtension, displayName: displayName, icon: icon, category: selectedCategory, dateAdded: Date.now() });
                     await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
                     bookmarkDataProvider.refresh();
                     vscode.window.showInformationMessage(`Extension ${selectedExtension} has been bookmarked.`);
@@ -277,6 +295,17 @@ function activate(context) {
                         vscode.commands.executeCommand('workbench.extensions.search', `${selectedBookmarkId}`);
                     }
                 });
+        }
+    }));
+
+    // Command to change the sorting option
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.changeSortingOption', async () => {
+        const options = ['A-Z', 'Z-A', 'New-Old', 'Old-New'];
+        const selectedOption = await vscode.window.showQuickPick(options, { placeHolder: 'Select a sorting option' });
+        if (selectedOption) {
+            await vscode.workspace.getConfiguration('extension-bookmarker').update('sortingOption', selectedOption, vscode.ConfigurationTarget.Global);
+            bookmarkDataProvider.refresh();
+            vscode.window.showInformationMessage(`Sorting option has been changed to ${selectedOption}.`);
         }
     }));
 

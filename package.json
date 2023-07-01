@@ -28,6 +28,7 @@
     "onCommand:extension-bookmarker.addTag",
     "onCommand:extension-bookmarker.removeTag",
     "onCommand:extension-bookmarker.filterByTag",
+    "onCommand:extension-bookmarker.changeSortingOption",
     "onCommand:extension-bookmarker.importData",
     "onCommand:extension-bookmarker.exportData",
     "onCommand:extension-bookmarker.removeAllData",
@@ -96,6 +97,10 @@
       {
         "command": "extension-bookmarker.filterByTag",
         "title": "Filter Bookmarks by Tag"
+      },
+      {
+        "command": "extension-bookmarker.changeSortingOption",
+        "title": "Change Sorting Option"
       },
       {
         "command": "extension-bookmarker.importData",
@@ -172,6 +177,12 @@
           "type": "array",
           "default": [],
           "description": "List of bookmarks with their categories"
+        },
+        "extension-bookmarker.sortingOption": {
+          "type": "string",
+          "default": "A-Z",
+          "description": "Sorting option for bookmarks",
+          "enum": ["A-Z", "Z-A", "New-Old", "Old-New"]
         }
       }
     }
