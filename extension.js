@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 class BookmarkDataProvider {
     constructor() {
@@ -18,10 +20,7 @@ class BookmarkDataProvider {
     async getChildren(element) {
         const categories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
         const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
-    
-        console.log('Categories:', categories);
-        console.log('Bookmarks:', bookmarks);
-        
+
         if (element) {
             return bookmarks.filter(bookmark => bookmark.category === element.label).map(bookmark => {
                 let treeItem = new vscode.TreeItem(bookmark.displayName);
@@ -39,7 +38,7 @@ class BookmarkDataProvider {
                 let treeItem = new vscode.TreeItem(category, vscode.TreeItemCollapsibleState.Collapsed);
                 treeItem.contextValue = category === 'Default' ? 'defaultCategory' : 'category';
                 return treeItem;
-              });
+            });
         }
     }
 }
@@ -48,16 +47,20 @@ function activate(context) {
     const bookmarkDataProvider = new BookmarkDataProvider();
     vscode.window.registerTreeDataProvider('extensionBookmarkerView', bookmarkDataProvider);
 
-    // Command to select adding a bookmark, category or search
+    // Command to select adding a bookmark, category, search, import or export
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.add', async () => {
-        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark'];
+        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark', 'Import Categories/Bookmarks', 'Export Categories/Bookmarks'];
         const selectedOption = await vscode.window.showQuickPick(options, { placeHolder: 'Select an option' });
         if (selectedOption === options[0]) {
-        vscode.commands.executeCommand('extension-bookmarker.addBookmark');
+            vscode.commands.executeCommand('extension-bookmarker.addBookmark');
         } else if (selectedOption === options[1]) {
-        vscode.commands.executeCommand('extension-bookmarker.addCategory');
+            vscode.commands.executeCommand('extension-bookmarker.addCategory');
         } else if (selectedOption === options[2]) {
-        vscode.commands.executeCommand('extension-bookmarker.searchBookmark');
+            vscode.commands.executeCommand('extension-bookmarker.searchBookmark');
+        } else if (selectedOption === options[3]) {
+            vscode.commands.executeCommand('extension-bookmarker.importData');
+        } else if (selectedOption === options[4]) {
+            vscode.commands.executeCommand('extension-bookmarker.exportData');
         }
     }));
 
@@ -210,15 +213,68 @@ function activate(context) {
             const searchResults = bookmarks.filter(bookmark => bookmark.displayName.toLowerCase().includes(searchTerm.toLowerCase()));
             if (searchResults.length > 0) {
                 vscode.window.showQuickPick(searchResults.map(bookmark => bookmark.displayName), { placeHolder: 'Select a bookmark to view details' })
-                .then(selectedBookmark => {
-                    if (selectedBookmark) {
-                        const selectedBookmarkId = searchResults.find(bookmark => bookmark.displayName === selectedBookmark).id;
-                        vscode.commands.executeCommand('workbench.extensions.search', `${selectedBookmarkId}`);
-                    }
-                });
+                    .then(selectedBookmark => {
+                        if (selectedBookmark) {
+                            const selectedBookmarkId = searchResults.find(bookmark => bookmark.displayName === selectedBookmark).id;
+                            vscode.commands.executeCommand('workbench.extensions.search', `${selectedBookmarkId}`);
+                        }
+                    });
             } else {
                 vscode.window.showInformationMessage(`No bookmarks found with the term ${searchTerm}.`);
             }
+        }
+    }));
+
+    // Command to import categories/bookmarks
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.importData', async () => {
+        const filePath = await vscode.window.showOpenDialog({ defaultUri: vscode.Uri.file(vscode.workspace.rootPath), canSelectMany: false, filters: { 'JSON': ['json'] } });
+        if (filePath && filePath[0]) {
+            fs.readFile(filePath[0].fsPath, (err, data) => {
+                if (err) {
+                    vscode.window.showErrorMessage(`Failed to import data: ${err}`);
+                } else {
+                    try {
+                        const { categories: importedCategories, bookmarks: importedBookmarks } = JSON.parse(data);
+                        const existingCategories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
+                        const existingBookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+
+                        // Merge categories and bookmarks, removing duplicates
+                        const mergedCategories = [...new Set([...existingCategories, ...importedCategories])];
+                        const mergedBookmarks = [...existingBookmarks, ...importedBookmarks.filter((importedBookmark) =>
+                            !existingBookmarks.some(existingBookmark => existingBookmark.id === importedBookmark.id)
+                        )];
+
+                        Promise.all([
+                            vscode.workspace.getConfiguration('extension-bookmarker').update('categories', mergedCategories, vscode.ConfigurationTarget.Global),
+                            vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', mergedBookmarks, vscode.ConfigurationTarget.Global)
+                        ]).then(() => {
+                            bookmarkDataProvider.refresh(); // Refresh the data provider
+                            vscode.window.showInformationMessage(`Data has been imported from ${filePath[0].fsPath}`);
+                        }).catch(err => {
+                            vscode.window.showErrorMessage(`Failed to update data: ${err}`);
+                        });
+                    } catch (err) {
+                        vscode.window.showErrorMessage(`Failed to parse data: ${err}`);
+                    }
+                }
+            });
+        }
+    }));
+
+    // Command to export categories/bookmarks
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.exportData', async () => {
+        const categories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const data = { categories, bookmarks };
+        const filePath = await vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(path.join(vscode.workspace.rootPath, 'bookmarker-data.json')) });
+        if (filePath) {
+            fs.writeFile(filePath.fsPath, JSON.stringify(data, null, 2), (err) => {
+                if (err) {
+                    vscode.window.showErrorMessage(`Failed to export data: ${err}`);
+                } else {
+                    vscode.window.showInformationMessage(`Data has been exported to ${filePath.fsPath}`);
+                }
+            });
         }
     }));
 
@@ -232,9 +288,9 @@ function activate(context) {
 }
 
 // This method is called when the extension is deactivated
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
     activate,
     deactivate
-}
+};

@@ -24,6 +24,10 @@
     "onCommand:extension-bookmarker.renameCategory",
     "onCommand:extension-bookmarker.removeCategory",
     "onCommand:extension-bookmarker.moveBookmark",
+    "onCommand:extension-bookmarker.searchBookmark",
+    "onCommand:extension-bookmarker.importData",
+    "onCommand:extension-bookmarker.exportData",
+    "onCommand:extension-bookmarker.removeAllData",
     "onView:extensionBookmarkerView"
   ],
   "main": "./extension",
@@ -77,6 +81,14 @@
       {
         "command": "extension-bookmarker.searchBookmark",
         "title": "Search Extension Bookmark"
+      },
+      {
+        "command": "extension-bookmarker.importData",
+        "title": "Import Categories/Bookmarks"
+      },
+      {
+        "command": "extension-bookmarker.exportData",
+        "title": "Export Categories/Bookmarks"
       },
       {
         "command": "extension-bookmarker.removeAllData",
