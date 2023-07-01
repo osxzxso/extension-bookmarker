@@ -66,16 +66,16 @@ Current Features
 5. **Import/Export Bookmarks**: Import and export all categories and corresponding bookmarks.
 6. **Tagging/Filtering System**: Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
 7. **Sorting Options**: Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
+8. **Bookmark Notes**: Add personal note to each bookmark for added context and better recall.
+9. **View Extension Details**: View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 
 Upcoming Features
 -----------------
 1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move or remove bookmarks in bulk.
 2. **Bulk Add/Remove Categories**: Ability to add or remove categories in bulk.
 3. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
-4. **Bookmark Notes**: Add personal notes to each bookmark for added context and better recall.
-5. **Extension Recommendations**: Get recommendations for other extensions you might find useful, based on your current set of bookmarked extensions.
-6. **Extension Stats**: Integrate each bookmark's download count, rating, and last update date into the UI.
-7. **Synchronization Across Installations**: Sync data across different installations of Visual Studio Code.
+4. **Extension Recommendations**: Get recommendations for other extensions you might find useful, based on your current set of bookmarked extensions.
+5. **Synchronization Across Installations**: Sync data across different installations of Visual Studio Code.
 
 CURRENT VERSION - 1.0.0
 -----------------------
@@ -88,8 +88,11 @@ CURRENT VERSION - 1.0.0
 - Import and export all categories and corresponding bookmarks.
 - Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
 - Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
+- Add personal note to each bookmark for added context and better recall.
+- View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 ### ISSUES - last updated on 6/25/23
-⬜ Remove Extension bookmark command from the command palette doesn't work, and needs to account for when there are no bookmakrs yet and the command is executed.  
+⬜ Remove Extension bookmark command from the command palette doesn't work, and needs to account for when there are no bookmarks yet and the command is executed. Perhaps other commands when used in the command palette are not working either. Look into it.  
+⬜ Import Export needs to account for all of the Bookmark object's properties, since new properties have been added. That way all added data will be included (no loss) when importing or exporting.
 ⬜ UI commands appear in the command palette. Hide them from the command palette, if possible.  
 ⬜ Add a screenshot(s) to this README.md file.
 

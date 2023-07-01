@@ -40,6 +40,15 @@ class BookmarkDataProvider {
             }
             return bookmarksInCategory.map(bookmark => {
                 let treeItem = new vscode.TreeItem(bookmark.displayName);
+                let details = `ID: ${bookmark.id}\nName: ${bookmark.displayName}\nCategory: ${bookmark.category}`;
+                if (bookmark.tags && bookmark.tags.length > 0) {
+                    details += `\nTags: ${bookmark.tags.join(', ')}`;
+                }
+                details += `\nAdded: ${bookmark.dateAdded}\n\nDownloads: ${bookmark.downloadCount}\nRating: ${bookmark.rating}\nUpdated: ${bookmark.lastUpdate}`;
+                if (bookmark.note) {
+                    details += `\n\nNote: ${bookmark.note}`;
+                }
+                treeItem.tooltip = details;
                 treeItem.command = {
                     command: 'extension-bookmarker.openExtension',
                     arguments: [bookmark.id],
@@ -109,7 +118,13 @@ function activate(context) {
                     let extensionData = response.data.results[0].extensions[0];
                     let displayName = extensionData.displayName;
                     let icon = extensionData.versions[0].files.find(file => file.assetType === "Microsoft.VisualStudio.Services.Icons.Default")?.source;
-                    bookmarks.push({ id: selectedExtension, displayName: displayName, icon: icon, category: selectedCategory, dateAdded: Date.now() });
+                    let downloadCount = extensionData.statistics.find(stat => stat.statisticName === "install")?.value;
+                    let rating = extensionData.statistics.find(stat => stat.statisticName === "averagerating")?.value;
+                    let dateAdded = new Date().toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+                    let lastUpdate = new Date(extensionData.versions[0].lastUpdated).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' });
+                    downloadCount = downloadCount.toLocaleString();
+                    rating = rating.toFixed(1);
+                    bookmarks.push({ id: selectedExtension, displayName: displayName, icon: icon, category: selectedCategory, dateAdded: dateAdded, downloadCount: downloadCount, rating: rating, lastUpdate: lastUpdate });
                     await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
                     bookmarkDataProvider.refresh();
                     vscode.window.showInformationMessage(`Extension ${selectedExtension} has been bookmarked.`);
@@ -306,6 +321,51 @@ function activate(context) {
             await vscode.workspace.getConfiguration('extension-bookmarker').update('sortingOption', selectedOption, vscode.ConfigurationTarget.Global);
             bookmarkDataProvider.refresh();
             vscode.window.showInformationMessage(`Sorting option has been changed to ${selectedOption}.`);
+        }
+    }));
+
+    // Command to add a note to a bookmark
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.addNote', async (item) => {
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const bookmark = bookmarks.find(bookmark => bookmark.id === item.command.arguments[0]);
+        if (bookmark) {
+            const newNote = await vscode.window.showInputBox({ prompt: 'Enter the note for the bookmark' });
+            if (newNote) {
+                bookmark.note = newNote;
+                await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
+                bookmarkDataProvider.refresh();
+                vscode.window.showInformationMessage(`Note has been added to ${item.label}.`);
+            }
+        }
+    }));
+
+    // Command to remove a note from a bookmark
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.removeNote', async (item) => {
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const bookmark = bookmarks.find(bookmark => bookmark.id === item.command.arguments[0]);
+        if (bookmark && bookmark.note) {
+            delete bookmark.note;
+            await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
+            bookmarkDataProvider.refresh();
+            vscode.window.showInformationMessage(`Note has been removed from ${item.label}.`);
+        }
+    }));
+
+    // Command to view a bookmark's details - text document
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.viewBookmarkDetails', async (item) => {
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const bookmark = bookmarks.find(bookmark => bookmark.id === item.command.arguments[0]);
+        if (bookmark) {
+            let details = `ID: ${bookmark.id}\nName: ${bookmark.displayName}\nCategory: ${bookmark.category}`;
+            if (bookmark.tags && bookmark.tags.length > 0) {
+                details += `\nTags: ${bookmark.tags.join(', ')}`;
+            }
+            details += `\nAdded: ${bookmark.dateAdded}\n\nDownloads: ${bookmark.downloadCount}\nRating: ${bookmark.rating}\nUpdated: ${bookmark.lastUpdate}`;
+            if (bookmark.note) {
+                details += `\n\nNote: ${bookmark.note}`;
+            }
+            const document = await vscode.workspace.openTextDocument({ content: details, language: 'markdown' });
+            await vscode.window.showTextDocument(document);
         }
     }));
 

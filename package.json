@@ -29,6 +29,9 @@
     "onCommand:extension-bookmarker.removeTag",
     "onCommand:extension-bookmarker.filterByTag",
     "onCommand:extension-bookmarker.changeSortingOption",
+    "onCommand:extension-bookmarker.addNote",
+    "onCommand:extension-bookmarker.removeNote",
+    "onCommand:extension-bookmarker.viewBookmarkDetails",
     "onCommand:extension-bookmarker.importData",
     "onCommand:extension-bookmarker.exportData",
     "onCommand:extension-bookmarker.removeAllData",
@@ -79,8 +82,8 @@
         "title": "Remove Extension Category"
       },
       {
-      "command": "extension-bookmarker.moveBookmark",
-      "title": "Move Extension Bookmark"
+        "command": "extension-bookmarker.moveBookmark",
+        "title": "Move Extension Bookmark"
       },
       {
         "command": "extension-bookmarker.searchBookmark",
@@ -101,6 +104,18 @@
       {
         "command": "extension-bookmarker.changeSortingOption",
         "title": "Change Sorting Option"
+      },
+      {
+        "command": "extension-bookmarker.addNote",
+        "title": "Add Note to Extension Bookmark"
+      },
+      {
+        "command": "extension-bookmarker.removeNote",
+        "title": "Remove Note from Extension Bookmark"
+      },
+      {
+        "command": "extension-bookmarker.viewBookmarkDetails",
+        "title": "View Bookmark Details"
       },
       {
         "command": "extension-bookmarker.importData",
@@ -161,6 +176,21 @@
           "command": "extension-bookmarker.removeTag",
           "group": "0_extension_bookmarker",
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
+        },
+        {
+          "command": "extension-bookmarker.addNote",
+          "group": "0_extension_bookmarker",
+          "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
+        },
+        {
+          "command": "extension-bookmarker.removeNote",
+          "group": "0_extension_bookmarker",
+          "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
+        },
+        {
+          "command": "extension-bookmarker.viewBookmarkDetails",
+          "group": "0_extension_bookmarker",
+          "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         }
       ]
     },
@@ -170,7 +200,9 @@
       "properties": {
         "extension-bookmarker.categories": {
           "type": "array",
-          "default": ["Default"],
+          "default": [
+            "Default"
+          ],
           "description": "List of categories"
         },
         "extension-bookmarker.bookmarks": {
@@ -182,7 +214,12 @@
           "type": "string",
           "default": "A-Z",
           "description": "Sorting option for bookmarks",
-          "enum": ["A-Z", "Z-A", "New-Old", "Old-New"]
+          "enum": [
+            "A-Z",
+            "Z-A",
+            "New-Old",
+            "Old-New"
+          ]
         }
       }
     }
