@@ -39,7 +39,8 @@ Upcoming Features
 2. **Bulk Add/Remove Categories**: Ability to add or remove categories in bulk.
 3. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
 4. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
-5. **Synchronization Across Installations**: Sync data across different installations of VSC.
+5. *Expand/Collapse Categories**: Ability to expand or collapse all categories at once.
+6. **Synchronization Across Installations**: Sync data across different installations of VSC.
 
 CURRENT VERSION - 1.0.0
 -----------------------

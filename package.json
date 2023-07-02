@@ -30,6 +30,7 @@
     "onCommand:extension-bookmarker.filterByTag",
     "onCommand:extension-bookmarker.sortBookmarks",
     "onCommand:extension-bookmarker.addNote",
+    "onCommand:extension-bookmarker.editNote",
     "onCommand:extension-bookmarker.removeNote",
     "onCommand:extension-bookmarker.viewDetails",
     "onCommand:extension-bookmarker.importData",
@@ -110,6 +111,10 @@
         "title": "Add Note to Bookmark"
       },
       {
+        "command" : "extension-bookmarker.editNote",
+        "title": "Edit Note"
+      },
+      {
         "command": "extension-bookmarker.removeNote",
         "title": "Remove Note from Bookmark"
       },
@@ -179,6 +184,11 @@
         },
         {
           "command": "extension-bookmarker.addNote",
+          "group": "0_extension_bookmarker",
+          "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
+        },
+        {
+          "command": "extension-bookmarker.editNote",
           "group": "0_extension_bookmarker",
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         },
