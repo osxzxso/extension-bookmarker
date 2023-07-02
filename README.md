@@ -4,7 +4,7 @@ Extension Bookmarker
 Overview
 --------
 
-Extension Bookmarker is a Visual Studio Code extension that allows you to bookmark other  extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
+Extension Bookmarker is a Visual Studio Code (VSC) extension that allows you to bookmark other extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
 
 Screenshots and Demo
 -----------------
@@ -12,9 +12,9 @@ Screenshots and Demo
 
 **Note**: When adding or removing bookmarks, make sure to copy the identifier exactly as shown, including the publisher and extension name (publisher.extensionname).
 
-How to locate and copy an extension's identifier within the VS Code Extensions Marketplace:
+How to locate and copy an extension's identifier within the VSC Extensions Marketplace:
 -------------------------------------------------------------------------------------------
-1. Open the Extensions view in Visual Studio Code by clicking on the "Extensions" icon in the Activity Bar on the side or by using the shortcut `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (Mac).
+1. Open the Extensions view in VSC by clicking on the "Extensions" icon in the Activity Bar on the side or by using the shortcut `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (Mac).
 2. In the search bar at the top, enter the name or keywords related to the extension you are looking for.
 3. From the search results, locate the extension you are interested in, right click on it and select "Copy Extension ID". The extension's identifier is now copied.
 3. Alternatively, from the search results, locate the extension you are interested in and click on it to open its details page.
@@ -23,13 +23,13 @@ How to locate and copy an extension's identifier within the VS Code Extensions M
 Current Features
 -----------------
 1. **Addition and Removal of Bookmarks**: Add and remove bookmarks, as well as select a category to associate each bookmark with.
-2. **View in Marketplace**: Select a bookmark to open it in the Extensions view of the Visual Studio Code Marketplace.
+2. **View in Marketplace**: Select a bookmark to open it in the VSC Extensions Marketplace.
 3. **Categorization of Bookmarks**: Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
 4. **Search Functionality**: Search through your bookmarks.
-5. **Import/Export Bookmarks**: Import and export all categories and corresponding bookmarks.
+5. **Import/Export Bookmarks**: Import and export all your data.
 6. **Tagging/Filtering System**: Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
 7. **Sorting Options**: Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
-8. **Bookmark Notes**: Add personal note to each bookmark for added context and better recall.
+8. **Bookmark Notes**: Add a personal note to each bookmark for added context and better recall.
 9. **View Extension Details**: View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 10. **Remove All Data**: Ability to remove all data in one command (confirmation required).
 
@@ -46,13 +46,13 @@ CURRENT VERSION - 1.0.0
 ### CHANGES - released on 7/1/2023
 - Initial release of Extension Bookmarker.
 - Add and remove bookmarks, as well as select a category to associate each bookmark with.
-- Select a bookmark to open it in the Extensions view of the Visual Studio Code Marketplace.
+- Select a bookmark to open it in the VSC Extensions Marketplace.
 - Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
 - Search through your bookmarks.
-- Import and export all categories and corresponding bookmarks.
+- Import and export all your data.
 - Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
 - Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
-- Add personal note to each bookmark for added context and better recall.
+- Add a personal note to each bookmark for added context and better recall.
 - View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 - Ability to remove all data in one command (confirmation required).
 ### ISSUES - last updated on 7/1/23
