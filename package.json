@@ -24,11 +24,11 @@
     "onCommand:extension-bookmarker.renameCategory",
     "onCommand:extension-bookmarker.removeCategory",
     "onCommand:extension-bookmarker.moveBookmark",
-    "onCommand:extension-bookmarker.searchBookmark",
+    "onCommand:extension-bookmarker.searchBookmarks",
     "onCommand:extension-bookmarker.addTag",
     "onCommand:extension-bookmarker.removeTag",
     "onCommand:extension-bookmarker.filterByTag",
-    "onCommand:extension-bookmarker.changeSortingOption",
+    "onCommand:extension-bookmarker.sortBookmarks",
     "onCommand:extension-bookmarker.addNote",
     "onCommand:extension-bookmarker.removeNote",
     "onCommand:extension-bookmarker.viewBookmarkDetails",
@@ -59,59 +59,59 @@
     "commands": [
       {
         "command": "extension-bookmarker.addBookmark",
-        "title": "Add Extension Bookmark"
+        "title": "Add Bookmark"
       },
       {
         "command": "extension-bookmarker.viewBookmarks",
-        "title": "View Extension Bookmarks"
+        "title": "View Bookmarks"
       },
       {
         "command": "extension-bookmarker.removeBookmark",
-        "title": "Remove Extension Bookmark"
+        "title": "Remove Bookmark"
       },
       {
         "command": "extension-bookmarker.addCategory",
-        "title": "Add Extension Category"
+        "title": "Add Category"
       },
       {
         "command": "extension-bookmarker.renameCategory",
-        "title": "Rename Extension Category"
+        "title": "Rename Category"
       },
       {
         "command": "extension-bookmarker.removeCategory",
-        "title": "Remove Extension Category"
+        "title": "Remove Category"
       },
       {
         "command": "extension-bookmarker.moveBookmark",
-        "title": "Move Extension Bookmark"
+        "title": "Move Bookmark"
       },
       {
-        "command": "extension-bookmarker.searchBookmark",
-        "title": "Search Extension Bookmark"
+        "command": "extension-bookmarker.searchBookmarks",
+        "title": "Search Bookmarks"
       },
       {
         "command": "extension-bookmarker.addTag",
-        "title": "Add Tag to Extension Bookmark"
+        "title": "Add Tag to Bookmark"
       },
       {
         "command": "extension-bookmarker.removeTag",
-        "title": "Remove Tag from Extension Bookmark"
+        "title": "Remove Tag from Bookmark"
       },
       {
         "command": "extension-bookmarker.filterByTag",
         "title": "Filter Bookmarks by Tag"
       },
       {
-        "command": "extension-bookmarker.changeSortingOption",
-        "title": "Change Sorting Option"
+        "command": "extension-bookmarker.sortBookmarks",
+        "title": "Sort Bookmarks"
       },
       {
         "command": "extension-bookmarker.addNote",
-        "title": "Add Note to Extension Bookmark"
+        "title": "Add Note to Bookmark"
       },
       {
         "command": "extension-bookmarker.removeNote",
-        "title": "Remove Note from Extension Bookmark"
+        "title": "Remove Note from Bookmark"
       },
       {
         "command": "extension-bookmarker.viewBookmarkDetails",
@@ -119,15 +119,15 @@
       },
       {
         "command": "extension-bookmarker.importData",
-        "title": "Import Categories/Bookmarks"
+        "title": "Import Data"
       },
       {
         "command": "extension-bookmarker.exportData",
-        "title": "Export Categories/Bookmarks"
+        "title": "Export Data"
       },
       {
         "command": "extension-bookmarker.removeAllData",
-        "title": "Remove All Extension Bookmark/Category Data"
+        "title": "Remove All Data"
       },
       {
         "command": "extension-bookmarker.add",

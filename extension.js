@@ -32,10 +32,10 @@ class BookmarkDataProvider {
                     bookmarksInCategory.sort((a, b) => b.displayName.localeCompare(a.displayName));
                     break;
                 case 'New-Old':
-                    bookmarksInCategory.sort((a, b) => b.dateAdded - a.dateAdded);
+                    bookmarksInCategory.sort((a, b) => new Date(b.dateAdded) - new Date(a.dateAdded));
                     break;
                 case 'Old-New':
-                    bookmarksInCategory.sort((a, b) => a.dateAdded - b.dateAdded);
+                    bookmarksInCategory.sort((a, b) => new Date(a.dateAdded) - new Date(b.dateAdded));
                     break;
             }
             return bookmarksInCategory.map(bookmark => {
@@ -72,24 +72,31 @@ function activate(context) {
     const bookmarkDataProvider = new BookmarkDataProvider();
     vscode.window.registerTreeDataProvider('extensionBookmarkerView', bookmarkDataProvider);
 
-    // Command to select adding a bookmark, adding a category, search, import or export, filter, sort
+    // Command to select adding a bookmark, adding a category, search, import or export, filter, sort, remove all data
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.add', async () => {
-        const options = ['Add Bookmark', 'Add Category', 'Search Bookmark', 'Import Categories/Bookmarks', 'Export Categories/Bookmarks', 'Filter by Tag', 'Change Sorting Option'];
+        const options = ['Add Bookmark', 'Add Category', 'Search Bookmarks', 'Filter Bookmarks by Tag', 'Sort Bookmarks', 'Import Data', 'Export Data', 'Remove All Data'];
         const selectedOption = await vscode.window.showQuickPick(options, { placeHolder: 'Select an option' });
         if (selectedOption === options[0]) {
             vscode.commands.executeCommand('extension-bookmarker.addBookmark');
         } else if (selectedOption === options[1]) {
             vscode.commands.executeCommand('extension-bookmarker.addCategory');
         } else if (selectedOption === options[2]) {
-            vscode.commands.executeCommand('extension-bookmarker.searchBookmark');
+            vscode.commands.executeCommand('extension-bookmarker.searchBookmarks');
         } else if (selectedOption === options[3]) {
-            vscode.commands.executeCommand('extension-bookmarker.importData');
-        } else if (selectedOption === options[4]) {
-            vscode.commands.executeCommand('extension-bookmarker.exportData');
-        } else if (selectedOption === options[5]) {
             vscode.commands.executeCommand('extension-bookmarker.filterByTag');
+        } else if (selectedOption === options[4]) {
+            vscode.commands.executeCommand('extension-bookmarker.sortBookmarks');
+        } else if (selectedOption === options[5]) {
+            vscode.commands.executeCommand('extension-bookmarker.importData');
         } else if (selectedOption === options[6]) {
-            vscode.commands.executeCommand('extension-bookmarker.changeSortingOption');
+            vscode.commands.executeCommand('extension-bookmarker.exportData');
+        } else if (selectedOption === options[7]) {
+            const confirmation = await vscode.window.showInputBox({ prompt: 'Type "remove all data" to confirm' });
+            if (confirmation === 'remove all data') {
+                vscode.commands.executeCommand('extension-bookmarker.removeAllData');
+            } else {
+                vscode.window.showInformationMessage('Data removal cancelled.');
+            }
         }
     }));
 
@@ -240,7 +247,7 @@ function activate(context) {
     }));
 
     // Command to search a bookmark
-    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.searchBookmark', async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.searchBookmarks', async () => {
         const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
         const searchTerm = await vscode.window.showInputBox({ prompt: 'Enter the name of the bookmark to search' });
 
@@ -314,7 +321,7 @@ function activate(context) {
     }));
 
     // Command to change the sorting option
-    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.changeSortingOption', async () => {
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.sortBookmarks', async () => {
         const options = ['A-Z', 'Z-A', 'New-Old', 'Old-New'];
         const selectedOption = await vscode.window.showQuickPick(options, { placeHolder: 'Select a sorting option' });
         if (selectedOption) {
@@ -369,7 +376,7 @@ function activate(context) {
         }
     }));
 
-    // Command to import categories/bookmarks
+    // Command to import data
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.importData', async () => {
         const filePath = await vscode.window.showOpenDialog({ defaultUri: vscode.Uri.file(vscode.workspace.rootPath), canSelectMany: false, filters: { 'JSON': ['json'] } });
         if (filePath && filePath[0]) {
@@ -405,12 +412,12 @@ function activate(context) {
         }
     }));
 
-    // Command to export categories/bookmarks
+    // Command to export data
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.exportData', async () => {
         const categories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
         const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
         const data = { categories, bookmarks };
-        const filePath = await vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(path.join(vscode.workspace.rootPath, 'bookmarker-data.json')) });
+        const filePath = await vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(path.join(vscode.workspace.rootPath, 'extension-bookmarker-data.json')) });
         if (filePath) {
             fs.writeFile(filePath.fsPath, JSON.stringify(data, null, 2), (err) => {
                 if (err) {

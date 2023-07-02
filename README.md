@@ -74,7 +74,7 @@ Upcoming Features
 1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move or remove bookmarks in bulk.
 2. **Bulk Add/Remove Categories**: Ability to add or remove categories in bulk.
 3. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
-4. **Extension Recommendations**: Get recommendations for other extensions you might find useful, based on your current set of bookmarked extensions.
+4. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
 5. **Synchronization Across Installations**: Sync data across different installations of Visual Studio Code.
 
 CURRENT VERSION - 1.0.0
@@ -91,10 +91,11 @@ CURRENT VERSION - 1.0.0
 - Add personal note to each bookmark for added context and better recall.
 - View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 ### ISSUES - last updated on 6/25/23
-⬜ Remove Extension bookmark command from the command palette doesn't work, and needs to account for when there are no bookmarks yet and the command is executed. Perhaps other commands when used in the command palette are not working either. Look into it.  
-⬜ Import Export needs to account for all of the Bookmark object's properties, since new properties have been added. That way all added data will be included (no loss) when importing or exporting.
-⬜ UI commands appear in the command palette. Hide them from the command palette, if possible.  
-⬜ Add a screenshot(s) to this README.md file.
+⬜ Some of the commands, when used from the command palette, are not working; however, they are working when used from the extension UI.  
+⬜ In general, the commands appear in the command palette. Hide/Remove them from the command palette so that they can only be used from the extension UI, if possible.  
+⬜ Add screenshots and demo to this README.md file.  
+⬜ Potentially reorder of items in the action menu as well as the items in the context menus.
+⬜ Fix the way canceling an action occurs. For example, if you start the "Add Bookmark" action menu, then immediately click out of the action or press Escape to cancel the action, without completing anything, it should not proceed to select category and say things like, "Bookmark undefined already exists".
 
 Support
 -------
