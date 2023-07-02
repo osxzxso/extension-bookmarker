@@ -4,7 +4,7 @@ Extension Bookmarker
 Overview
 --------
 
-Extension Bookmarker allows you to bookmark other VS Code extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
+Extension Bookmarker is a Visual Studio Code extension that allows you to bookmark other  extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
 
 Screenshots and Demo
 -----------------
