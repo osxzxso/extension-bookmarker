@@ -39,7 +39,7 @@ Upcoming Features
 2. **Bulk Add/Remove Categories**: Ability to add or remove categories in bulk.
 3. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
 4. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
-5. **Synchronization Across Installations**: Sync data across different installations of Visual Studio Code.
+5. **Synchronization Across Installations**: Sync data across different installations of VSC.
 
 CURRENT VERSION - 1.0.0
 -----------------------
@@ -64,4 +64,4 @@ CURRENT VERSION - 1.0.0
 
 Support
 -------
-If you encounter any problems or have suggestions for the Extension Bookmarker, feel free to open an issue on the [GitHub repository](https://github.com/osxzxso/extension-bookmarker.git). Your feedback is always welcome and appreciated!
+If you encounter any problems or have suggestions for Extension Bookmarker, feel free to open an issue on the [GitHub repository](https://github.com/osxzxso/extension-bookmarker.git). Your feedback is always welcome and appreciated!
