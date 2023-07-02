@@ -31,7 +31,7 @@
     "onCommand:extension-bookmarker.sortBookmarks",
     "onCommand:extension-bookmarker.addNote",
     "onCommand:extension-bookmarker.removeNote",
-    "onCommand:extension-bookmarker.viewBookmarkDetails",
+    "onCommand:extension-bookmarker.viewDetails",
     "onCommand:extension-bookmarker.importData",
     "onCommand:extension-bookmarker.exportData",
     "onCommand:extension-bookmarker.removeAllData",
@@ -114,8 +114,8 @@
         "title": "Remove Note from Bookmark"
       },
       {
-        "command": "extension-bookmarker.viewBookmarkDetails",
-        "title": "View Bookmark Details"
+        "command": "extension-bookmarker.viewDetails",
+        "title": "View Details"
       },
       {
         "command": "extension-bookmarker.importData",
@@ -188,7 +188,7 @@
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         },
         {
-          "command": "extension-bookmarker.viewBookmarkDetails",
+          "command": "extension-bookmarker.viewDetails",
           "group": "0_extension_bookmarker",
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         }

@@ -30,7 +30,7 @@ Current Features
 6. **Tagging/Filtering System**: Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
 7. **Sorting Options**: Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
 8. **Bookmark Notes**: Add a personal note to each bookmark for added context and better recall.
-9. **View Extension Details**: View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
+9. **View Details**: View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 10. **Remove All Data**: Ability to remove all data in one command (confirmation required).
 
 Upcoming Features

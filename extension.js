@@ -359,7 +359,7 @@ function activate(context) {
     }));
 
     // Command to view a bookmark's details - text document
-    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.viewBookmarkDetails', async (item) => {
+    context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.viewDetails', async (item) => {
         const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
         const bookmark = bookmarks.find(bookmark => bookmark.id === item.command.arguments[0]);
         if (bookmark) {
