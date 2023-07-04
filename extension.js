@@ -216,8 +216,11 @@ function activate(context) {
         quickPick.items = categories.sort().map(category => ({ label: category }));
         quickPick.placeholder = 'Enter a new category';
         quickPick.onDidChangeValue(value => {
+            const titleCaseValue = value.replace(/\w\S*/g, function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
             if (value && !categories.map(category => category.toLowerCase()).includes(value.toLowerCase())) {
-                quickPick.items = [{ label: value }, ...categories.sort().map(category => ({ label: category }))];
+                quickPick.items = [{ label: titleCaseValue }, ...categories.sort().map(category => ({ label: category }))];
             } else {
                 quickPick.items = categories.sort((a, b) => {
                     if (a === 'Default') return -1;
@@ -227,7 +230,9 @@ function activate(context) {
             }
         });
         quickPick.onDidAccept(async () => {
-            const newCategory = quickPick.value;
+            const newCategory = quickPick.value.replace(/\w\S*/g, function (txt) {
+                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+            });
             if (newCategory && newCategory.trim() !== '' && !categories.map(category => category.toLowerCase()).includes(newCategory.toLowerCase())) {
                 categories.push(newCategory);
                 await vscode.workspace.getConfiguration('extension-bookmarker').update('categories', categories, vscode.ConfigurationTarget.Global);
@@ -266,14 +271,19 @@ function activate(context) {
             quickPick.value = selectedCategory;
             quickPick.placeholder = 'Enter the new name of the category';
             quickPick.onDidChangeValue(value => {
+                const titleCaseValue = value.replace(/\w\S*/g, function (txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
                 if (value && !categories.map(category => category.toLowerCase()).includes(value.toLowerCase())) {
-                    quickPick.items = [{ label: value }, ...categories.map(category => ({ label: category }))];
+                    quickPick.items = [{ label: titleCaseValue }, ...categories.map(category => ({ label: category }))];
                 } else {
                     quickPick.items = categories.map(category => ({ label: category }));
                 }
             });
             quickPick.onDidAccept(async () => {
-                const newCategoryName = quickPick.value;
+                const newCategoryName = quickPick.value.replace(/\w\S*/g, function (txt) {
+                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+                });
                 if (newCategoryName && newCategoryName.trim() !== '' && !categories.map(category => category.toLowerCase()).includes(newCategoryName.toLowerCase())) {
                     const index = categories.indexOf(selectedCategory);
                     if (index > -1) {
@@ -703,19 +713,31 @@ function activate(context) {
                     vscode.window.showErrorMessage(`Failed to import data: ${err}`);
                 } else {
                     try {
-                        const { categories: importedCategories, bookmarks: importedBookmarks } = JSON.parse(data);
+                        const parsedData = JSON.parse(data);
+                        if (!parsedData || typeof parsedData !== 'object' || Array.isArray(parsedData) || !parsedData.categories || !parsedData.bookmarks || !parsedData.tags) {
+                            vscode.window.showErrorMessage('Invalid data structure. The file should contain an object with "categories", "bookmarks", and "tags" arrays.');
+                            return;
+                        }
+                        const { categories: importedCategories, bookmarks: importedBookmarks, tags: importedTags } = parsedData;
+                        if (!Array.isArray(importedCategories) || !Array.isArray(importedBookmarks) || !Array.isArray(importedTags)) {
+                            vscode.window.showErrorMessage('Invalid data structure. "categories", "bookmarks", and "tags" should be arrays.');
+                            return;
+                        }
                         const existingCategories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
                         const existingBookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+                        const existingTags = vscode.workspace.getConfiguration('extension-bookmarker').get('tags', []);
 
-                        // Merge categories and bookmarks, removing duplicates
+                        // Merge categories, bookmarks, and tags, removing duplicates
                         const mergedCategories = [...new Set([...existingCategories, ...importedCategories])];
                         const mergedBookmarks = [...existingBookmarks, ...importedBookmarks.filter((importedBookmark) =>
                             !existingBookmarks.some(existingBookmark => existingBookmark.id === importedBookmark.id)
                         )];
+                        const mergedTags = [...new Set([...existingTags, ...importedTags])];
 
                         Promise.all([
                             vscode.workspace.getConfiguration('extension-bookmarker').update('categories', mergedCategories, vscode.ConfigurationTarget.Global),
-                            vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', mergedBookmarks, vscode.ConfigurationTarget.Global)
+                            vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', mergedBookmarks, vscode.ConfigurationTarget.Global),
+                            vscode.workspace.getConfiguration('extension-bookmarker').update('tags', mergedTags, vscode.ConfigurationTarget.Global) // Update tags
                         ]).then(() => {
                             bookmarkDataProvider.refresh(); // Refresh the data provider
                             vscode.window.showInformationMessage(`Data has been imported from ${filePath[0].fsPath}`);
@@ -734,7 +756,12 @@ function activate(context) {
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.exportData', async () => {
         const categories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
         const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
-        const data = { categories, bookmarks };
+        const tags = vscode.workspace.getConfiguration('extension-bookmarker').get('tags', []);
+        if ((categories.length === 1 && categories[0] === 'Default') && bookmarks.length === 0 && tags.length === 0) {
+            vscode.window.showInformationMessage('No data to export.');
+            return;
+        }
+        const data = { categories, bookmarks, tags };
         const filePath = await vscode.window.showSaveDialog({ defaultUri: vscode.Uri.file(path.join(vscode.workspace.rootPath, 'extension-bookmarker-data.json')) });
         if (filePath) {
             fs.writeFile(filePath.fsPath, JSON.stringify(data, null, 2), (err) => {
@@ -749,10 +776,18 @@ function activate(context) {
 
     // Command to remove all data
     context.subscriptions.push(vscode.commands.registerCommand('extension-bookmarker.removeAllData', async () => {
+        const categories = vscode.workspace.getConfiguration('extension-bookmarker').get('categories', []);
+        const bookmarks = vscode.workspace.getConfiguration('extension-bookmarker').get('bookmarks', []);
+        const tags = vscode.workspace.getConfiguration('extension-bookmarker').get('tags', []);
+        if ((categories.length === 1 && categories[0] === 'Default') && bookmarks.length === 0 && tags.length === 0) {
+            vscode.window.showInformationMessage('No data to remove.');
+            return;
+        }
         const confirmation = await vscode.window.showInputBox({ prompt: 'Type "remove all data" to confirm' });
         if (confirmation === 'remove all data') {
             await vscode.workspace.getConfiguration('extension-bookmarker').update('categories', ["Default"], vscode.ConfigurationTarget.Global);
             await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', [], vscode.ConfigurationTarget.Global);
+            await vscode.workspace.getConfiguration('extension-bookmarker').update('tags', [], vscode.ConfigurationTarget.Global); // Remove all tags
             bookmarkDataProvider.refresh();
             vscode.window.showInformationMessage(`All data has been removed.`);
         } else {
