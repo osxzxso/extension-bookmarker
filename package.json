@@ -25,8 +25,11 @@
     "onCommand:extension-bookmarker.removeCategory",
     "onCommand:extension-bookmarker.moveBookmark",
     "onCommand:extension-bookmarker.searchBookmarks",
-    "onCommand:extension-bookmarker.addTag",
-    "onCommand:extension-bookmarker.removeTag",
+    "onCommand:extension-bookmarker.addTagToList",
+    "onCommand:extension-bookmarker.renameTagInList",
+    "onCommand:extension-bookmarker.removeTagFromList",
+    "onCommand:extension-bookmarker.addTagToBookmark",
+    "onCommand:extension-bookmarker.removeTagFromBookmark",
     "onCommand:extension-bookmarker.filterByTag",
     "onCommand:extension-bookmarker.sortBookmarks",
     "onCommand:extension-bookmarker.addNote",
@@ -87,15 +90,23 @@
         "title": "Move Bookmark"
       },
       {
-        "command": "extension-bookmarker.searchBookmarks",
-        "title": "Search Bookmarks"
+        "command": "extension-bookmarker.addTagToList",
+        "title": "Add Tag to List"
       },
       {
-        "command": "extension-bookmarker.addTag",
+        "command": "extension-bookmarker.renameTagInList",
+        "title": "Rename Tag in List"
+      },
+      {
+        "command": "extension-bookmarker.removeTagFromList",
+        "title": "Remove Tag from List"
+      },
+      {
+        "command": "extension-bookmarker.addTagToBookmark",
         "title": "Add Tag to Bookmark"
       },
       {
-        "command": "extension-bookmarker.removeTag",
+        "command": "extension-bookmarker.removeTagFromBookmark",
         "title": "Remove Tag from Bookmark"
       },
       {
@@ -111,7 +122,7 @@
         "title": "Add Note to Bookmark"
       },
       {
-        "command" : "extension-bookmarker.editNote",
+        "command": "extension-bookmarker.editNote",
         "title": "Edit Note"
       },
       {
@@ -141,12 +152,25 @@
           "light": "media/light/actions-icon.svg",
           "dark": "media/dark/actions-icon.svg"
         }
+      },
+      {
+        "command": "extension-bookmarker.searchBookmarks",
+        "title": "Search",
+        "icon": {
+          "light": "media/light/search-icon.svg",
+          "dark": "media/dark/search-icon.svg"
+        }
       }
     ],
     "menus": {
       "view/title": [
         {
           "command": "extension-bookmarker.add",
+          "group": "navigation",
+          "when": "view == extensionBookmarkerView"
+        },
+        {
+          "command": "extension-bookmarker.searchBookmarks",
           "group": "navigation",
           "when": "view == extensionBookmarkerView"
         }
@@ -173,12 +197,12 @@
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         },
         {
-          "command": "extension-bookmarker.addTag",
+          "command": "extension-bookmarker.addTagToBookmark",
           "group": "0_extension_bookmarker",
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         },
         {
-          "command": "extension-bookmarker.removeTag",
+          "command": "extension-bookmarker.removeTagFromBookmark",
           "group": "0_extension_bookmarker",
           "when": "view == extensionBookmarkerView && viewItem == bookmarkedExtension"
         },
@@ -230,6 +254,11 @@
             "New-Old",
             "Old-New"
           ]
+        },
+        "extension-bookmarker.tags": {
+          "type": "array",
+          "default": [],
+          "description": "List of tags"
         }
       }
     }

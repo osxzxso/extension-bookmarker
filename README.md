@@ -27,9 +27,9 @@ Current Features
 3. **Categorization of Bookmarks**: Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
 4. **Search Functionality**: Search through your bookmarks.
 5. **Import/Export Bookmarks**: Import and export all your data.
-6. **Tagging/Filtering System**: Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
+6. **Tagging/Filtering System**: Add, rename, and remove tags and assign them to your bookmarks for improved organization, filtering, and retrieval.
 7. **Sorting Options**: Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
-8. **Bookmark Notes**: Add a personal note to each bookmark for added context and better recall.
+8. **Bookmark Notes**: Add, edit, and remove a personal note for each bookmark, providing added context and better recall.
 9. **View Details**: View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 10. **Remove All Data**: Ability to remove all data in one command (confirmation required).
 
@@ -39,29 +39,27 @@ Upcoming Features
 2. **Bulk Add/Remove Categories**: Ability to add or remove categories in bulk.
 3. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
 4. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
-5. *Expand/Collapse Categories**: Ability to expand or collapse all categories at once.
+5. **Expand/Collapse Categories**: Ability to expand or collapse all categories at once.
 6. **Synchronization Across Installations**: Sync data across different installations of VSC.
 
 CURRENT VERSION - 1.0.0
 -----------------------
-### CHANGES - released on 7/1/2023
+### CHANGES - released on 7/4/2023
 - Initial release of Extension Bookmarker.
 - Add and remove bookmarks, as well as select a category to associate each bookmark with.
 - Select a bookmark to open it in the VSC Extensions Marketplace.
 - Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
 - Search through your bookmarks.
 - Import and export all your data.
-- Add multiple tags to each bookmark for improved organization, filtering, and retrieval.
+- Add, rename, and remove tags and assign them to your bookmarks for improved organization, filtering, and retrieval.
 - Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
-- Add a personal note to each bookmark for added context and better recall.
+- Add, edit, and remove a personal note for each bookmark, providing added context and better recall.
 - View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 - Ability to remove all data in one command (confirmation required).
-### ISSUES - last updated on 7/1/23
-⬜ Some of the commands, when used from the command palette, are not working; however, they are working when used from the extension UI.  
-⬜ In general, all the commands appear in the command palette. Hide/Remove them from the command palette so that they can only be used from the extension UI, if possible.  
-⬜ Add screenshots and demo to this README.md file.  
-⬜ Potentially reorder of items in the action menu as well as the items in the context menus.
-⬜ Fix the way canceling an action occurs. For example, if you start the "Add Bookmark" action, then immediately click out of the action or press Escape to cancel the action, without completing anything, it should not proceed to "select category" then continue to "Bookmark undefined already exists".
+### ISSUES - last updated on 7/4/23
+- Some of the commands, when used from the command palette, are not working; however, they are all working when used from the extension UI.  
+- Add screenshots and demo to this README.md file.  
+- Potentially reorder of items in the action menu as well as the items in the context menus.
 
 Support
 -------
