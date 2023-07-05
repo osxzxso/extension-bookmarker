@@ -6,9 +6,9 @@ Overview
 
 Extension Bookmarker is a Visual Studio Code (VSC) extension that allows you to bookmark other extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
 
-Screenshots and Demo
+Demo
 -----------------
-- Coming Soon!
+![Demo](media/extension-bookmarker-demo.gif "Demo")
 
 **Note**: When adding or removing bookmarks, make sure to copy the identifier exactly as shown, including the publisher and extension name (publisher.extensionname).
 
