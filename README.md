@@ -32,6 +32,7 @@ Current Features
 8. **Bookmark Notes**: Add, edit, and remove a personal note for each bookmark, providing added context and better recall.
 9. **View Details**: View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 10. **Remove All Data**: Ability to remove all data in one command (confirmation required).
+11. **Synchronization Across Installations**: Enable Settings Sync to sync data across different installations of VSC.
 
 Upcoming Features
 -----------------
@@ -40,9 +41,8 @@ Upcoming Features
 3. **Bulk Add/Rename/Remove Tags**: Ability to add, rename, and remove tags in bulk.
 4. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
 5. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
-6. **Expand/Collapse Categories**: Ability to expand or collapse all categories at once.
-7. **Synchronization Across Installations**: Sync data across different installations of VSC.
-8. **Add Bookmark by Name**: Ability to add bookmarks using extension names in addition to identifiers.
+6. **Expand/Collapse All Categories**: Ability to expand or collapse all categories at once.
+7. **Add Bookmarks by Name**: Ability to add bookmarks using extension names in addition to identifiers.
 
 CURRENT VERSION - 1.0.0
 -----------------------
@@ -58,6 +58,7 @@ CURRENT VERSION - 1.0.0
 - Add, edit, and remove a personal note for each bookmark, providing added context and better recall.
 - View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
 - Ability to remove all data in one command (confirmation required).
+- Enable Settings Sync to sync data across different installations of VSC.
 ### ISSUES - last updated on 7/4/23
 - Some of the commands, when used from the command palette, are not working; however, they are all working when used from the extension UI.  
 - Add screenshots and demo to this README.md file.  
