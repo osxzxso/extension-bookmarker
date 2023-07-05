@@ -35,12 +35,14 @@ Current Features
 
 Upcoming Features
 -----------------
-1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move or remove bookmarks in bulk.
-2. **Bulk Add/Remove Categories**: Ability to add or remove categories in bulk.
-3. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
-4. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
-5. **Expand/Collapse Categories**: Ability to expand or collapse all categories at once.
-6. **Synchronization Across Installations**: Sync data across different installations of VSC.
+1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move, and remove bookmarks in bulk.
+2. **Bulk Add/Rename/Remove Categories**: Ability to add, rename, and remove categories in bulk.
+3. **Bulk Add/Rename/Remove Tags**: Ability to add, rename, and remove tags in bulk.
+4. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
+5. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
+6. **Expand/Collapse Categories**: Ability to expand or collapse all categories at once.
+7. **Synchronization Across Installations**: Sync data across different installations of VSC.
+8. **Add Bookmark by Name**: Ability to add bookmarks using extension names in addition to identifiers.
 
 CURRENT VERSION - 1.0.0
 -----------------------
