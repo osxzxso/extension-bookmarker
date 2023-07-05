@@ -1,0 +1,8 @@
+.vscode/**
+.vscodeignore
+.git/**
+node_modules/**
+exports/**
+vsix/**
+*.vsix
+*.log

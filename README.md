@@ -7,13 +7,13 @@ Overview
 Extension Bookmarker is a Visual Studio Code (VSC) extension that allows you to bookmark other extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
 
 Demo
------------------
+----
 ![Demo](https://raw.githubusercontent.com/osxzxso/extension-bookmarker/main/media/extension-bookmarker-demo.gif "Demo")
 
 **Note**: When adding or removing bookmarks, make sure to copy the identifier exactly as shown, including the publisher and extension name (publisher.extensionname).
 
 How to locate and copy an extension's identifier within the VSC Extensions Marketplace:
--------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------
 1. Open the Extensions view in VSC by clicking on the "Extensions" icon in the Activity Bar on the side or by using the shortcut `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (Mac).
 2. In the search bar at the top, enter the name or keywords related to the extension you are looking for.
 3. From the search results, locate the extension you are interested in, right click on it and select "Copy Extension ID". The extension's identifier is now copied.
@@ -21,7 +21,7 @@ How to locate and copy an extension's identifier within the VSC Extensions Marke
 4. On the details page, you will find the extension's identifier listed under the extension's "More Info" section. Select the identifier and press `Ctrl+C`. The extension's identifier is now copied.
 
 Current Features
------------------
+----------------
 1. **Addition and Removal of Bookmarks**: Add and remove bookmarks, as well as select a category to associate each bookmark with.
 2. **View in Marketplace**: Select a bookmark to open it in the VSC Extensions Marketplace.
 3. **Categorization of Bookmarks**: Add, rename, and remove categories (folders), as well as move bookmarks from one category to another. There is a permanent "Default" folder available for uncategorized bookmarks.
@@ -67,4 +67,4 @@ CURRENT VERSION - 1.0.0
 
 Support
 -------
-If you encounter any problems or have suggestions for Extension Bookmarker, feel free to open an issue on the [GitHub repository](https://github.com/osxzxso/extension-bookmarker.git). Your feedback is always welcome and appreciated!
+If you encounter any problems or have suggestions for Extension Bookmarker, feel free to open an issue on the [GitHub repository](https://github.com/osxzxso/extension-bookmarker). Your feedback is always welcome and appreciated!
