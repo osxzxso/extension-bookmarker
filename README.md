@@ -8,7 +8,7 @@ Extension Bookmarker is a Visual Studio Code (VSC) extension that allows you to 
 
 Demo
 -----------------
-![Demo](media/extension-bookmarker-demo.gif "Demo")
+![Demo](https://raw.githubusercontent.com/osxzxso/extension-bookmarker/main/media/extension-bookmarker-demo.gif "Demo")
 
 **Note**: When adding or removing bookmarks, make sure to copy the identifier exactly as shown, including the publisher and extension name (publisher.extensionname).
 
