@@ -24,7 +24,7 @@ Current Features
 -----------------
 1. **Addition and Removal of Bookmarks**: Add and remove bookmarks, as well as select a category to associate each bookmark with.
 2. **View in Marketplace**: Select a bookmark to open it in the VSC Extensions Marketplace.
-3. **Categorization of Bookmarks**: Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
+3. **Categorization of Bookmarks**: Add, rename, and remove categories (folders), as well as move bookmarks from one category to another. There is a permanent "Default" folder available for uncategorized bookmarks.
 4. **Search Functionality**: Search through your bookmarks.
 5. **Import/Export Bookmarks**: Import and export all your data.
 6. **Tagging/Filtering System**: Add, rename, and remove tags and assign them to your bookmarks for improved organization, filtering, and retrieval.
@@ -34,8 +34,8 @@ Current Features
 10. **Remove All Data**: Ability to remove all data in one command (confirmation required).
 11. **Synchronization Across Installations**: Enable Settings Sync to sync data across different installations of VSC.
 
-Upcoming Features
------------------
+Upcoming Features/Ideas
+-----------------------
 1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move, and remove bookmarks in bulk.
 2. **Bulk Add/Rename/Remove Categories**: Ability to add, rename, and remove categories in bulk.
 3. **Bulk Add/Rename/Remove Tags**: Ability to add, rename, and remove tags in bulk.
@@ -43,6 +43,11 @@ Upcoming Features
 5. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
 6. **Expand/Collapse All Categories**: Ability to expand or collapse all categories at once.
 7. **Add Bookmarks by Name**: Ability to add bookmarks using extension names in addition to identifiers.
+8. **Enhanced Search Functionality**: Expand search to include all data and details for more comprehensive results.
+9. **Improved Bookmark Addition**: Revise the bookmark addition process to use extension names instead of IDs, enhancing sorted display and real-time updates when providing input.
+10. **Unified Input Instructions**: Place all input instructions in a common location, either as a placeholder or below the input area.
+11. **Visual Cues for Bookmarks**: Ability to mark bookmarks as favorites or a priority level. Prepend stars for favorites and colored circles for priority (red for lowest, yellow for middle, green for highest). Introduce a permanent nested folder, after "Default", to display favorite and priority bookmarks, ensuring only visual duplication.
+12. **Drag-and-Drop Functionality**: Enable drag-and-drop functionality for moving bookmarks between categories.
 
 CURRENT VERSION - 1.0.0
 -----------------------
