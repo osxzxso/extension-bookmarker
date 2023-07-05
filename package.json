@@ -2,7 +2,7 @@
   "name": "extension-bookmarker",
   "displayName": "Extension Bookmarker",
   "description": "Bookmark Visual Studio Code extensions for later use.",
-  "icon": "media/extension-bookmarker-icon-dark-mode.png",
+  "icon": "media/extension-bookmarker-logo.png",
   "version": "1.0.0",
   "publisher": "osxzxso",
   "repository": {
@@ -48,7 +48,7 @@
         {
           "id": "extensionBookmarker",
           "title": "Extension Bookmarker",
-          "icon": "media/activity-bar-icon.svg"
+          "icon": "media/activity-bar-icon.png"
         }
       ]
     },
@@ -149,16 +149,16 @@
         "command": "extension-bookmarker.add",
         "title": "Add",
         "icon": {
-          "light": "media/light/actions-icon.svg",
-          "dark": "media/dark/actions-icon.svg"
+          "light": "media/light/actions-icon.png",
+          "dark": "media/dark/actions-icon.png"
         }
       },
       {
         "command": "extension-bookmarker.searchBookmarks",
         "title": "Search",
         "icon": {
-          "light": "media/light/search-icon.svg",
-          "dark": "media/dark/search-icon.svg"
+          "light": "media/light/search-icon.png",
+          "dark": "media/dark/search-icon.png"
         }
       }
     ],

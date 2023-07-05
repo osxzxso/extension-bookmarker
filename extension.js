@@ -216,11 +216,8 @@ function activate(context) {
         quickPick.items = categories.sort().map(category => ({ label: category }));
         quickPick.placeholder = 'Enter a new category';
         quickPick.onDidChangeValue(value => {
-            const titleCaseValue = value.replace(/\w\S*/g, function (txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            });
             if (value && !categories.map(category => category.toLowerCase()).includes(value.toLowerCase())) {
-                quickPick.items = [{ label: titleCaseValue }, ...categories.sort().map(category => ({ label: category }))];
+                quickPick.items = [{ label: value }, ...categories.sort().map(category => ({ label: category }))];
             } else {
                 quickPick.items = categories.sort((a, b) => {
                     if (a === 'Default') return -1;
@@ -230,9 +227,7 @@ function activate(context) {
             }
         });
         quickPick.onDidAccept(async () => {
-            const newCategory = quickPick.value.replace(/\w\S*/g, function (txt) {
-                return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-            });
+            const newCategory = quickPick.value;
             if (newCategory && newCategory.trim() !== '' && !categories.map(category => category.toLowerCase()).includes(newCategory.toLowerCase())) {
                 categories.push(newCategory);
                 await vscode.workspace.getConfiguration('extension-bookmarker').update('categories', categories, vscode.ConfigurationTarget.Global);
@@ -271,20 +266,15 @@ function activate(context) {
             quickPick.value = selectedCategory;
             quickPick.placeholder = 'Enter the new name of the category';
             quickPick.onDidChangeValue(value => {
-                const titleCaseValue = value.replace(/\w\S*/g, function (txt) {
-                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });
-                if (value && !categories.map(category => category.toLowerCase()).includes(value.toLowerCase())) {
-                    quickPick.items = [{ label: titleCaseValue }, ...categories.map(category => ({ label: category }))];
+                if (value && !categories.filter(category => category.toLowerCase() !== selectedCategory.toLowerCase()).map(category => category.toLowerCase()).includes(value.toLowerCase())) {
+                    quickPick.items = [{ label: value }, ...categories.map(category => ({ label: category }))];
                 } else {
                     quickPick.items = categories.map(category => ({ label: category }));
                 }
             });
             quickPick.onDidAccept(async () => {
-                const newCategoryName = quickPick.value.replace(/\w\S*/g, function (txt) {
-                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                });
-                if (newCategoryName && newCategoryName.trim() !== '' && !categories.map(category => category.toLowerCase()).includes(newCategoryName.toLowerCase())) {
+                const newCategoryName = quickPick.value;
+                if (newCategoryName && newCategoryName.trim() !== '' && newCategoryName !== selectedCategory && (!categories.filter(category => category.toLowerCase() !== selectedCategory.toLowerCase()).map(category => category.toLowerCase()).includes(newCategoryName.toLowerCase()))) {
                     const index = categories.indexOf(selectedCategory);
                     if (index > -1) {
                         categories[index] = newCategoryName;
@@ -299,7 +289,11 @@ function activate(context) {
                         vscode.window.showInformationMessage(`Category ${selectedCategory} has been renamed to ${newCategoryName}.`);
                     }
                 } else if (newCategoryName && newCategoryName.trim() !== '') {
-                    vscode.window.showErrorMessage(`Category ${newCategoryName} already exists.`);
+                    if (newCategoryName === selectedCategory) {
+                        vscode.window.showErrorMessage(`New category name cannot be the same as the old name.`);
+                    } else {
+                        vscode.window.showErrorMessage(`Category ${newCategoryName} already exists.`);
+                    }
                 }
                 quickPick.hide();
             });
@@ -537,7 +531,11 @@ function activate(context) {
                     vscode.window.showInformationMessage(`Tag ${selectedTag} has been added to ${bookmark.displayName}.`);
                 }
             } else {
-                vscode.window.showInformationMessage(`All tags are already added to ${bookmark.displayName}.`);
+                if (tags.length === 0) {
+                    vscode.window.showInformationMessage(`No tags available to add to ${bookmark.displayName}.`);
+                } else {
+                    vscode.window.showInformationMessage(`All tags are already added to ${bookmark.displayName}.`);
+                }
             }
         }
     }));
