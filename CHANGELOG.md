@@ -1,9 +1,15 @@
 Changelog
 =========
 
-All notable changes to the "Extension Bookmarker" extension will be documented in this file.
+All notable changes to Extension Bookmarker will be documented in this file.
 
-CURRENT VERSION - 1.0.0
+CURRENT VERSION - 1.0.1
+-----------------------
+### CHANGES - released on 7/6/2023
+- Updated README.md file
+- Added/Removed exclusions from .gitignore and .vscodeignore files  
+
+1.0.0
 -----------------------
 ### CHANGES - released on 7/5/2023
 - Initial release of Extension Bookmarker.
