@@ -1,26 +1,26 @@
 Extension Bookmarker
 ====================
 
-Overview
+OVERVIEW
 --------
 
 Extension Bookmarker is a Visual Studio Code (VSC) extension that allows you to bookmark other extensions. This makes it easy to keep track of your favorite or frequently used extensions, as well as those you are interested in but perhaps not ready to install yet.
 
-Demo
+DEMO
 ----
 ![Demo](https://raw.githubusercontent.com/osxzxso/extension-bookmarker/main/media/extension-bookmarker-demo.gif "Demo")
 
 **Note**: When adding or removing bookmarks, make sure to copy the identifier exactly as shown, including the publisher and extension name (publisher.extensionname).
 
-How to locate and copy an extension's identifier within the VSC Extensions Marketplace:
----------------------------------------------------------------------------------------
+### How to locate and copy an extension's identifier within the VSC Extensions Marketplace:
+
 1. Open the Extensions view in VSC by clicking on the "Extensions" icon in the Activity Bar on the side or by using the shortcut `Ctrl+Shift+X` (Windows/Linux) or `Cmd+Shift+X` (Mac).
 2. In the search bar at the top, enter the name or keywords related to the extension you are looking for.
 3. From the search results, locate the extension you are interested in, right click on it and select "Copy Extension ID". The extension's identifier is now copied.
 3. Alternatively, from the search results, locate the extension you are interested in and click on it to open its details page.
 4. On the details page, you will find the extension's identifier listed under the extension's "More Info" section. Select the identifier and press `Ctrl+C`. The extension's identifier is now copied.
 
-Current Features
+CURRENT FEATURES
 ----------------
 1. **Addition and Removal of Bookmarks**: Add and remove bookmarks, as well as select a category to associate each bookmark with.
 2. **View in Marketplace**: Select a bookmark to open it in the VSC Extensions Marketplace.
@@ -34,7 +34,7 @@ Current Features
 10. **Remove All Data**: Ability to remove all data in one command (confirmation required).
 11. **Synchronization Across Installations**: Enable Settings Sync to sync data across different installations of VSC.
 
-Upcoming Features/Ideas
+UPCOMING FEATURES/IDEAS
 -----------------------
 1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move, and remove bookmarks in bulk.
 2. **Bulk Add/Rename/Remove Categories**: Ability to add, rename, and remove categories in bulk.
@@ -51,7 +51,9 @@ CURRENT VERSION - 1.0.1
 -----------------------
 ### CHANGES - released on 7/6/2023
 - Updated README.md file
-- Added/Removed exclusions from .gitignore and .vscodeignore files
+- Added/Removed exclusions from .gitignore and .vscodeignore files  
+
+<sub>view CHANGELOG for full history</sub>
 
 Support
 -------
