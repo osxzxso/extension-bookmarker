@@ -39,31 +39,19 @@ Upcoming Features/Ideas
 1. **Bulk Add/Move/Remove Bookmarks**: Ability to add, move, and remove bookmarks in bulk.
 2. **Bulk Add/Rename/Remove Categories**: Ability to add, rename, and remove categories in bulk.
 3. **Bulk Add/Rename/Remove Tags**: Ability to add, rename, and remove tags in bulk.
-4. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks.
+4. **Favorites and Prioritization**: Mark bookmarks as favorites or assign them a priority level for easy access to important bookmarks. Prepend stars for favorites and colored circles for priority (red for lowest, yellow for middle, green for highest). Introduce a permanent nested folder, after "Default", to display favorite and priority bookmarks, ensuring only visual duplication.
 5. **More by Publisher**: View all extensions by a bookmarked extension's publisher.
 6. **Expand/Collapse All Categories**: Ability to expand or collapse all categories at once.
-7. **Add Bookmarks by Name**: Ability to add bookmarks using extension names in addition to identifiers.
+7. **Improved Bookmark Addition**: Ability to add bookmarks using extension names in addition to identifiers. Revise the bookmark addition process to enhance sorted display and real-time updates when providing input.
 8. **Enhanced Search Functionality**: Expand search to include all data and details for more comprehensive results.
-9. **Improved Bookmark Addition**: Revise the bookmark addition process to use extension names instead of IDs, enhancing sorted display and real-time updates when providing input.
-10. **Unified Input Instructions**: Place all input instructions in a common location, either as a placeholder or below the input area.
-11. **Visual Cues for Bookmarks**: Ability to mark bookmarks as favorites or a priority level. Prepend stars for favorites and colored circles for priority (red for lowest, yellow for middle, green for highest). Introduce a permanent nested folder, after "Default", to display favorite and priority bookmarks, ensuring only visual duplication.
-12. **Drag-and-Drop Functionality**: Enable drag-and-drop functionality for moving bookmarks between categories.
+9. **Unified Input Instructions**: Place all input instructions in a common location, either as a placeholder or below the input area.
+10. **Drag-and-Drop Functionality**: Enable drag-and-drop functionality for moving bookmarks between categories. 
 
-CURRENT VERSION - 1.0.0
+CURRENT VERSION - 1.0.1
 -----------------------
-### CHANGES - released on 7/5/2023
-- Initial release of Extension Bookmarker.
-- Add and remove bookmarks, as well as select a category to associate each bookmark with.
-- Select a bookmark to open it in the VSC Extensions Marketplace.
-- Add, rename, and remove categories (folders), as well as move bookmarks from one category to another.
-- Search through your bookmarks.
-- Import and export all your data.
-- Add, rename, and remove tags and assign them to your bookmarks for improved organization, filtering, and retrieval.
-- Sort bookmarks in alphabetical (A-Z, Z-A) or chronological (New-Old, Old-New) order.
-- Add, edit, and remove a personal note for each bookmark, providing added context and better recall.
-- View that includes each bookmark's properties and note, as well as marketplace details such as: download count, rating, and last update date.
-- Ability to remove all data in one command (confirmation required).
-- Enable Settings Sync to sync data across different installations of VSC.
+### CHANGES - released on 7/6/2023
+- Updated README.md file
+- Added/Removed exclusions from .gitignore and .vscodeignore files
 
 Support
 -------

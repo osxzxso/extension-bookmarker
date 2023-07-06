@@ -5,3 +5,4 @@ exports/**
 vsix/**
 *.vsix
 *.log
+media/svg/**
