@@ -150,13 +150,14 @@ function activate(context) {
                     if (response.data.results[0].extensions.length > 0) {
                         let extensionData = response.data.results[0].extensions[0];
                         let displayName = extensionData.displayName;
-                        let icon = extensionData.versions[0].files.find(file => file.assetType === "Microsoft.VisualStudio.Services.Icons.Default")?.source;
-                        let downloadCount = extensionData.statistics.find(stat => stat.statisticName === "install")?.value;
-                        let rating = extensionData.statistics.find(stat => stat.statisticName === "averagerating")?.value;
+                        let iconFile = extensionData.versions[0].files.find(file => file.assetType === "Microsoft.VisualStudio.Services.Icons.Default");
+                        let icon = iconFile ? iconFile.source : 'https://raw.githubusercontent.com/osxzxso/extension-bookmarker/main/media/default-bookmark-icon.png';
+                        let downloadCountStat = extensionData.statistics.find(stat => stat.statisticName === "install");
+                        let downloadCount = downloadCountStat ? downloadCountStat.value.toLocaleString() : 'N/A';
+                        let ratingStat = extensionData.statistics.find(stat => stat.statisticName === "averagerating");
+                        let rating = ratingStat ? ratingStat.value.toFixed(1) : 'N/A';
                         let dateAdded = new Date().toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' });
                         let lastUpdate = new Date(extensionData.versions[0].lastUpdated).toLocaleString('en-US', { year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric' });
-                        downloadCount = downloadCount.toLocaleString();
-                        rating = rating.toFixed(1);
                         bookmarks.push({ id: selectedExtension, displayName: displayName, icon: icon, category: selectedCategory, dateAdded: dateAdded, downloadCount: downloadCount, rating: rating, lastUpdate: lastUpdate });
                         await vscode.workspace.getConfiguration('extension-bookmarker').update('bookmarks', bookmarks, vscode.ConfigurationTarget.Global);
                         bookmarkDataProvider.refresh();
