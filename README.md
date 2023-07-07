@@ -47,11 +47,10 @@ UPCOMING FEATURES/IDEAS
 9. **Unified Input Instructions**: Place all input instructions in a common location, either as a placeholder or below the input area.
 10. **Drag-and-Drop Functionality**: Enable drag-and-drop functionality for moving bookmarks between categories. 
 
-CURRENT VERSION - 1.0.1
+CURRENT VERSION - 1.0.2
 -----------------------
-### CHANGES - released on 7/6/2023
-- Updated README.md file
-- Added/Removed exclusions from .gitignore and .vscodeignore files  
+### CHANGES - released on 7/7/2023
+- Added more checks to the addBookmark command to address errors when fetching bookmarks with missing data.
 
 <sub>view CHANGELOG for full history</sub>
 

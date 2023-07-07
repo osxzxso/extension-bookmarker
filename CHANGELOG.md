@@ -3,7 +3,12 @@ Changelog
 
 All notable changes to Extension Bookmarker will be documented in this file.
 
-CURRENT VERSION - 1.0.1
+CURRENT VERSION - 1.0.2
+-----------------------
+### CHANGES - released on 7/7/2023
+- Added more checks to the addBookmark command to address errors when fetching bookmarks with missing data.
+
+1.0.1
 -----------------------
 ### CHANGES - released on 7/6/2023
 - Updated README.md file
